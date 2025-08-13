@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "UserList";
+}
+@model List<UserViewModel>
+<h1>UserList</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">UserId</th>
+            <th scope="col">UserName</th>
+            <th scope="col">UserEmail</th>
+            <th scope="col">Roles</th>
+            <th scope="col">
+                Appoint  Role to User
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (UserViewModel item in Model)
+        {
+            <tr>
+
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>
+                    <roles-of-user user-id="@item.Id"></roles-of-user>
+                </td>
+                <td>
+                    <a class=" btn btn-primary" asp-action="AppointRoleToUser" asp-area="admin" asp-controller="role" asp-route-id="@item.Id">Add Role</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

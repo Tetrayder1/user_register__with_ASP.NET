@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewData["Title"] = "Role Index";
+}
+
+@if (TempData["role"] != null)
+{
+    <div class="alert alert-primary" role="alert">
+        @TempData["role"]
+    </div>
+}
+
+
+<a class="btn btn-primary" asp-area="Admin" asp-controller="Role" asp-action="RoleCreate">Role Create</a>
+
+<hr />
+
+@model List<RoleListDTO>
+<h1>Role List</h1>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">RoleId</th>
+            <th scope="col">RoleName</th>
+            <th scope="col">
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (RoleListDTO item in Model)
+        {
+            <tr>
+
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <a asp-action="DeleteRole" asp-area="admin" asp-controller="role" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                        <a asp-action="roleUpdate" asp-area="admin" asp-controller="role"
+                           asp-route-id="@item.Id" class="btn btn-warning">Update</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

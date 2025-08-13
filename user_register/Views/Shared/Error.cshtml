@@ -1,0 +1,12 @@
+﻿@model List<user_register.core.OptionsModels.ErrorViewModel>
+@{
+    ViewData["Title"] = "Error";
+
+}
+
+@foreach (var item in Model)
+{
+    <div class="alert alert-danger" role="alert">
+        @item.Code:@item.Description
+    </div>
+}

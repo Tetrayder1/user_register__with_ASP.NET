@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Claims";
+}
+@model List<user_register.core.ViewModels.ClaimsTableModelView>
+
+<h1>CliamList</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">UserId</th>
+            <th scope="col">UserName</th>
+            <th scope="col">UserEmail</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (user_register.core.ViewModels.ClaimsTableModelView item in Model)
+        {
+            <tr>
+
+                <td>@item.Issuer</td>
+                <td>@item.Type</td>
+                <td>@item.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>

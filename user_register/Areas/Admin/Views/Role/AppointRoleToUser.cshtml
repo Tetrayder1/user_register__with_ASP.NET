@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "";
+}
+@model List<AppointRoleToUserDTO>
+
+
+<form asp-action="AppointRoleToUser" asp-area="admin" asp-controller="role" asp-route-id="@ViewBag.Id">
+    @for (int i = 0;  i < Model.Count; i++)
+    {
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" asp-for="@Model[i].Exist">
+            <label class="form-check-label" for="@Model[i].Id">@Model[i].Name</label>
+            <input type="hidden" class="form-check-input"  asp-for="@Model[i].Id">
+            <input type="hidden" class="form-check-input"  asp-for="@Model[i].Name">
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary">Qeyd Et</button>
+</form>

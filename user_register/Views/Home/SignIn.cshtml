@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewData["Title"] = "SignIn";
+}
+
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    @await Html.PartialAsync("_ViewModalForgetPassword");
+}
+@if (TempData["successSend"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["successSend"]
+    </div>
+}
+@if (TempData["failed"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["failed"]
+    </div>
+}
+@if (TempData["resetpassword"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["resetpassword"]
+    </div>
+}
+<div asp-validation-summary="ModelOnly" class="alert alert-primary" role="alert"></div>
+
+
+<h1>SignIn</h1>
+@model user_register.core.ViewModels.SignInViewModel
+
+<form asp-controller="home" asp-action="signin" method="post">
+    <div class="mb-3">
+        <label for="Email" asp-for="Email" class="form-label"></label>
+        <input type="email" class="form-control" asp-for="Email" aria-describedby="emailHelp">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="Password" asp-for="Password" class="form-label">Password</label>
+        <input type="password" asp-for="Password" class="form-control" id="exampleInputPassword1">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" asp-for="RememberMe">
+        <label asp-for="RememberMe" class="form-check-label" for="exampleCheck1"></label>
+
+
+        <button type="button" class="btn btn-primary mx-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Sifremi unutdum
+        </button>
+        <a type="button" asp-controller="Home" class="btn btn-danger mx-5" asp-action="GoogleLogin">
+            Google-la daxil ol
+        </a>
+        <a type="button" asp-controller="Home" class="btn btn-success mx-5" asp-action="FacebookLogin">
+            Facebook-la daxil ol
+        </a>
+
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Giris et</button>
+</form>
+
+

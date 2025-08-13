@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Index stock";
+}
+@inject Microsoft.AspNetCore.Authorization.IAuthorizationService auhorizationService
+
+
+
+<h1>Stock</h1>
+
+@if (auhorizationService.AuthorizeAsync(User, new {}, "OrderPolicy.Delete").Result.Succeeded) { 
+<button>Delete order</button>
+}

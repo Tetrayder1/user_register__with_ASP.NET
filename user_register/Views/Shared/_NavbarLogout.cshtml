@@ -1,0 +1,24 @@
+﻿@if (User.Identity!.IsAuthenticated)
+{
+    <ul class="navbar-nav" style="margin-right:100px">
+        <li class="nav-item dropdown mx-md-2">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                @User.Identity.Name
+            </a>
+            <ul class="dropdown-menu me-4 ">
+                <li><a class="dropdown-item" asp-action="Index" asp-controller="Member">Profil</a></li>
+                <li><a class="dropdown-item" asp-action="ChangePassword" asp-controller="Member">Password yenile</a></li>
+                <li><a class="dropdown-item" asp-action="Logout" asp-controller="Member">Logout</a></li>
+                @if (User.HasClaim(x=>x.Type==System.Security.Claims.ClaimTypes.Role && x.Value=="admin")) { 
+               <a class="nav-link text-warning" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin_page</a>
+                }
+            </ul>
+        </li>
+    </ul>
+}
+else
+{
+    <a class="btn btn-outline-primary mx-1" asp-area="" asp-controller="Home" asp-action="SignUp">SignUp</a>
+    <a class="btn btn-outline-primary" asp-area="" asp-controller="Home" asp-action="SignIn">SignIn</a>
+}
+
