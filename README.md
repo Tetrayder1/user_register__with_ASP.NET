@@ -36,10 +36,43 @@ public class AppDbContext:IdentityDbContext<AppUser,AppRole,string>
 <h4 align="left">Daha sonra isə Program.cs də DB-ni işə salırıq.</h4>
 
 ```c#
-options.UseSqlServer(
-builder.Configuration.GetConnectionString("sqlconnect")).UseSqlServer(x => x.MigrationsAssembly("user_register.repository"));
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+options.UseSqlServer(builder.Configuration.GetConnectionString("sqlconnect")).UseSqlServer(x => x.MigrationsAssembly("user_register.repository"));
 });
+//Burada əslində UseSqlServer-in içi boş olur , sadəcə biz N-Layer arxetekturasından istidadə edrirk deye, DB -ni başqa bir class library-dən çəkidiyimiz üçün MigrationAssembly metodundan istifadə edirik
 ```
+<h4 align="left">Gəlin artıq istifadəçi ilə bağlı məsələlərə toxunaq.</h4>
+
+```c#
+//Bunlardan ilki SignUp -dır
+ public class HomeController : Controller
+ {
+     private readonly UserManager<AppUser> _UserManager;
+     private readonly SignInManager<AppUser> _SignInManager;
+     public HomeController( UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+     {
+         _UserManager = userManager;
+         _SignInManager = signInManager;
+     }
+     public async Task<IActionResult> SignUp(SignUpViewModel request)
+     {
+     var identityResult = await _UserManager.CreateAsync(new AppUser() { Email = request.Email, UserName = request.UserName, PhoneNumber = request.Phone }, request.Password);
+
+     
+     if (!ClaimConfirm.Succeeded)
+     {
+         ModelState.AddErrorModelState(ClaimConfirm.Errors);
+         return View(request);
+     }
+      ...
+
+     }
+        
+  }
+```
+
+
 
 
 
